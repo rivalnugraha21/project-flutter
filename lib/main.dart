@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'container_widget.dart';
 import 'container2.dart';
+import 'column.dart';
+import 'RowColumn.dart';
+import 'LatihanColumn.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,15 +19,15 @@ class MyApp extends StatelessWidget {
       title: "belajar flutter",
       home: Scaffold(
         appBar: AppBar(
-          title: Text("RIVAL NIH BOS"),
-          backgroundColor: Colors.lightBlue,
+          title: Text("IVAL"),
+          backgroundColor: Colors.cyanAccent,
           centerTitle: true,
         ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: Colors.pink,
-          child: container2(),
+        body: LatihanColumn(
+          // height: double.infinity,
+          // width: double.infinity,
+          // color: Colors.pink,
+          // child: colum(),
         ),
 
       ),
