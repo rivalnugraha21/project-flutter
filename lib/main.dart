@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:latihan_flutter/LatihanColumn.dart';
+import 'package:latihan_flutter/ListFlora.dart';
 import 'package:latihan_flutter/Sopo_Jarwo.dart';
+import 'package:latihan_flutter/booking.dart';
+import 'package:latihan_flutter/grid_basic.dart';
 import 'package:latihan_flutter/grid_builder.dart';
+import 'package:latihan_flutter/latihan2.dart';
+import 'package:latihan_flutter/ListFlora.dart';
+import 'package:latihan_flutter/DetailFlora.dart';
+import 'package:latihan_flutter/form_screen.dart';
 
-
-
-void main() => runApp(const MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,129 +20,72 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: const NavigationExample(),
       debugShowCheckedModeBanner: false,
+      title: "ival",
+      initialRoute: '/',
+      routes: {
+        '/': (context) => BottomNavigationMenu(),
+        '/about': (context) => BelajarGridBuilder(),
+        'latihan': (context) => SopoJarwo()
+      },
     );
   }
 }
 
-class NavigationExample extends StatefulWidget {
-  const NavigationExample({super.key});
-
-  @override
-  State<NavigationExample> createState() => _NavigationExampleState();
-}
-
-class _NavigationExampleState extends State<NavigationExample> {
-  int currentPageIndex = 0;
+class TextWidget extends StatelessWidget {
+  const TextWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    return Center(
+      child: Text(
+        "Hello Dunia...\nHallo guys.. ",
+        style: TextStyle(
+            color: Colors.pink, fontSize: 24, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+class BottomNavigationMenu extends StatefulWidget {
+  const BottomNavigationMenu({super.key});
+
+  @override
+  State<BottomNavigationMenu> createState() => _BottomNavigationMenuState();
+}
+
+class _BottomNavigationMenuState extends State<BottomNavigationMenu> {
+  @override
+  int _selectedTab = 0;
+
+  List _pages = [ListFloraScreen(), booking(), BelajarForm(), SopoJarwo()];
+
+  _changeTab(int index) {
+    setState(() {
+      _selectedTab = index;
+    });
+  }
+
+  Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        indicatorColor: Colors.amber,
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
-          ),
-          NavigationDestination(
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
-            ),
-            label: 'Messages',
-          ),
+      appBar: AppBar(),
+      body: _pages[_selectedTab],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTab,
+        onTap: (index) => _changeTab(index),
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "List"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_3x3_outlined), label: "Grid"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.contact_mail), label: "Container"),
         ],
       ),
-      body: <Widget>[
-        /// Home page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: SopoJarwo(),
-          ),
-        ),
-
-        /// Notifications page
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        /// Messages page
-        ListView.builder(
-          reverse: true,
-          itemCount: 2,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text(
-                    'Hello',
-                    style: theme.textTheme.bodyLarge!
-                        .copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                ),
-              );
-            }
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Hi!',
-                  style: theme.textTheme.bodyLarge!
-                      .copyWith(color: theme.colorScheme.onPrimary),
-                ),
-              ),
-            );
-          },
-        ),
-      ][currentPageIndex],
     );
   }
 }

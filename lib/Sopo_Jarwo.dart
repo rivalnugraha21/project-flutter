@@ -57,7 +57,7 @@ class SopoJarwo extends StatelessWidget {
             ],
           ),
           Container(
-            color: Colors.white,
+            
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
             width: double.infinity,
@@ -68,20 +68,24 @@ class SopoJarwo extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     margin: EdgeInsets.all(10),
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Image.network(
+                    // color: Colors.white,
+                    child: Card(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(7),
+                        child: Image.network(
                           '${image1[index]}',
                           height: 150,
                           fit: BoxFit.cover,
                           width: double.infinity,
+                          
                         ),
-                        Text(
-                          '${nama1[index]}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                        //  Text(
+                        //   '${nama1[index]}',
+                        //   style: TextStyle(fontWeight: FontWeight.bold),
+                        // ),
+                      ),
+                        
+                     
                     ),
                   );
                 }),
@@ -99,7 +103,7 @@ class SopoJarwo extends StatelessWidget {
              ],
           ),
           Container(
-            color: Colors.white,
+            // color: Colors.white,
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
             width: double.infinity,
@@ -114,15 +118,26 @@ class SopoJarwo extends StatelessWidget {
                     child: Container(
                       height: 200,
                       width: 200,
-                      color: Colors.white,
+                      // color: Colors.white,
                       child: Row(
                         children: [
-                          Image.network('${image2[index]}'),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailKar()
+                                  ),
+                              );
+                            },
+                            child: Image.network('${image2[index]}'),
+                          ),
                           Text(
                             '${nama2[index]}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
+
                       ),
                       // child: Center(child: Text('Entry ${entries[index]}')),
                     ),
@@ -140,7 +155,7 @@ class SopoJarwo extends StatelessWidget {
             ],
           ),
           Container(
-            color: Colors.white,
+            // color: Colors.white,
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
             width: double.infinity,
@@ -154,9 +169,10 @@ class SopoJarwo extends StatelessWidget {
                 return Container( 
                   child: Card(
 
-                    child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(7),
                       child: Image.network(
-                        image3[index],
+                        image3[index], width: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -166,6 +182,26 @@ class SopoJarwo extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class DetailKar extends StatelessWidget {
+  const DetailKar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Kembali'),
+        // backgroundColor: Colors.amber,
+      ),
+      body: Container(
+        
+        color: Colors.amber,
+        height: 100, 
+        width: double.infinity,
       ),
     );
   }
